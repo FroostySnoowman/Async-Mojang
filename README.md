@@ -10,7 +10,7 @@ There is one component to this package:
 The easiest way to install the library is using `pip`. Just run the following console command:
 
 ```
-python -m pip install async-mojang
+pip install -U git+https://github.com/FroostySnoowman/Async-Mojang
 ```
 
 ## **Public API Quickstart**
