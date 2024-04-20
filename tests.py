@@ -1,5 +1,5 @@
 import asyncio
-from mojang import API
+from async_mojang import API
 
 async def get_uuid(username: str):
     async with API() as api:
