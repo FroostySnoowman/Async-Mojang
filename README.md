@@ -18,18 +18,13 @@ pip install -U git+https://github.com/FroostySnoowman/Async-Mojang
 ```py
 from mojang import API
 
-# Create a Public API instance
-api = API()
+async def get_uuid(username: str):
+    async with API() as api:
+        uuid = await api.get_uuid(username)
+        return uuid
 
-uuid = api.get_uuid("Notch")
-
-if not uuid:
-    print("Notch is not a taken username.")
-else:
-    print(f"Notch's UUID is {uuid}")
-
-    profile = api.get_profile(uuid)
-    print(f"Notch's skin URL is {profile.skin_url}")
-    print(f"Notch's skin variant is {profile.skin_variant}")
-    print(f"Notch's cape URL is {profile.cape_url}")
+async def get_username(uuid: str):
+    async with API() as api:
+        username = await api.get_username(uuid)
+        return username
 ```

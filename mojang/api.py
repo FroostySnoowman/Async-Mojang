@@ -88,25 +88,3 @@ class API(_HTTPClient):
         resp = await self.request("GET", f"{_SESSIONSERVER_BASE_URL}/blockedservers")
         data = await resp.text()
         return data.splitlines()
-
-    async def refresh_access_token(self, access_token: str, client_token: str) -> Dict[str, Any]:
-        """Refreshes access token."""
-        payload = {
-            "accessToken": access_token,
-            "clientToken": client_token,
-            "requestUser": True,
-        }
-
-        resp = await self.request(
-            "POST", f"{_AUTHSERVER_BASE_URL}/refresh", json=payload
-        )
-        data = await resp.json()
-        account = {
-            "username": data["user"]["username"],
-            "uuid": data["user"]["id"],
-            "access_token": data["accessToken"],
-            "client_token": data["clientToken"],
-            "profile_id": data.get("selectedProfile", {}).get("id"),
-            "profile_name": data.get("selectedProfile", {}).get("name"),
-        }
-        return account
