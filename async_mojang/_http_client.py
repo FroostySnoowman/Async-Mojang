@@ -6,7 +6,7 @@ import aiohttp
 
 from http.client import HTTPConnection
 
-from mojang.errors import (
+from async_mojang.errors import (
     MojangError,
     BadRequest,
     Forbidden,

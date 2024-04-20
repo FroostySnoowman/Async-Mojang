@@ -1,6 +1,6 @@
-from mojang.api import API
+from async_mojang.api import API
 
-from mojang.errors import (
+from async_mojang.errors import (
     MojangError,
     LoginFailure,
     BadRequest,

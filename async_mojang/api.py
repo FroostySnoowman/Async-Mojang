@@ -1,12 +1,12 @@
 import ast
+import json
 import base64
 import logging
-import json
 from typing import Any, List, Dict, Optional
 
-from mojang._types import UserProfile
-from mojang._http_client import _HTTPClient
-from mojang.errors import MojangError
+from async_mojang._types import UserProfile
+from async_mojang._http_client import _HTTPClient
+from async_mojang.errors import MojangError
 
 _log = logging.getLogger(__name__)
 

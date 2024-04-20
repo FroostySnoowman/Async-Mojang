@@ -1,8 +1,6 @@
 from datetime import datetime
 from typing import List, Optional
-
 from dataclasses import dataclass
-
 
 @dataclass
 class UserProfile:
@@ -14,7 +12,6 @@ class UserProfile:
     cape_url: Optional[str] = None
     skin_url: Optional[str] = None
 
-
 @dataclass
 class Skin:
     id: str
@@ -23,7 +20,6 @@ class Skin:
     variant: str
     alias: Optional[str] = None
 
-
 @dataclass
 class Cape:
     id: str
@@ -31,14 +27,12 @@ class Cape:
     url: str
     alias: str
 
-
 @dataclass
 class Profile:
     id: str
     name: str
     capes: List[Cape]
     skins: List[Skin]
-
 
 @dataclass
 class NameInformation:
