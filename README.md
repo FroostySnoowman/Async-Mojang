@@ -14,17 +14,4 @@ pip install -U git+https://github.com/FroostySnoowman/Async-Mojang
 ```
 
 ## **Public API Quickstart**
-
-```py
-from mojang import API
-
-async def get_uuid(username: str):
-    async with API() as api:
-        uuid = await api.get_uuid(username)
-        return uuid
-
-async def get_username(uuid: str):
-    async with API() as api:
-        username = await api.get_username(uuid)
-        return username
-```
+All Public API usage is found in the `tests.py` file.
