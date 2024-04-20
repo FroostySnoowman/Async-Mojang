@@ -1,18 +1,14 @@
 import ast
 import json
 import base64
-import logging
 from typing import Any, List, Dict, Optional
 
 from async_mojang._types import UserProfile
 from async_mojang._http_client import _HTTPClient
 from async_mojang.errors import MojangError
 
-_log = logging.getLogger(__name__)
-
 _API_BASE_URL = "https://api.mojang.com"
 _SESSIONSERVER_BASE_URL = "https://sessionserver.mojang.com"
-_AUTHSERVER_BASE_URL = "https://authserver.mojang.com"
 
 class API(_HTTPClient):
     async def get_uuid(self, username: str, timestamp: Optional[int] = None) -> Optional[str]:
