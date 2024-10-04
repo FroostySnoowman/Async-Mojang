@@ -24,6 +24,45 @@ class API(_HTTPClient):
         except (KeyError, json.decoder.JSONDecodeError):
             return None
 
+    async def get_formatted_uuid(self, username: str, timestamp: Optional[int] = None) -> Optional[str]:
+        """Convert a Minecraft name to a UUID and format it with dashes."""
+        url = f"{_API_BASE_URL}/users/profiles/minecraft/{username}"
+        if timestamp:
+            url += f"?at={timestamp}"
+
+        try:
+            resp = await self.request("GET", url, ignore_codes=[400])
+            data = await resp.json()
+            uuid = data["id"].replace("-", "")
+            
+            formatted_uuid = (
+                uuid[:8] + '-' +
+                uuid[8:12] + '-' +
+                uuid[12:16] + '-' +
+                uuid[16:20] + '-' +
+                uuid[20:]
+            )
+            
+            return formatted_uuid
+        except (KeyError, json.decoder.JSONDecodeError):
+            return None
+    
+    async def get_stripped_uuid(self, username: str, timestamp: Optional[int] = None) -> Optional[str]:
+        """Convert a Minecraft name to a UUID and remove all dashes."""
+        url = f"{_API_BASE_URL}/users/profiles/minecraft/{username}"
+        if timestamp:
+            url += f"?at={timestamp}"
+
+        try:
+            resp = await self.request("GET", url, ignore_codes=[400])
+            data = await resp.json()
+            
+            uuid = data["id"].replace("-", "")
+            
+            return uuid
+        except (KeyError, json.decoder.JSONDecodeError):
+            return None
+
     async def get_uuids(self, names: List[str]) -> Dict[str, str]:
         """Convert up to 10 usernames to UUIDs in a single network request."""
         if len(names) > 10:

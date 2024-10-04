@@ -6,6 +6,16 @@ async def get_uuid(username: str):
         uuid = await api.get_uuid(username)
         return uuid
 
+async def get_formatted_uuid(username: str):
+    async with API() as api:
+        formatted_uuid = await api.get_formatted_uuid(username)
+        return formatted_uuid
+
+async def get_stripped_uuid(username: str):
+    async with API() as api:
+        stripped_uuid = await api.get_stripped_uuid(username)
+        return stripped_uuid
+
 async def get_username(uuid: str):
     async with API() as api:
         username = await api.get_username(uuid)
