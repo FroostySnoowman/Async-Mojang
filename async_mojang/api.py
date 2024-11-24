@@ -12,20 +12,7 @@ _SESSIONSERVER_BASE_URL = "https://sessionserver.mojang.com"
 
 class API(_HTTPClient):
     async def get_uuid(self, username: str, timestamp: Optional[int] = None) -> Optional[str]:
-        """Convert a Minecraft name to a UUID. Current implementation ignores the timestamp parameter."""
-        url = f"{_API_BASE_URL}/users/profiles/minecraft/{username}"
-        if timestamp:
-            url += f"?at={timestamp}"
-
-        try:
-            resp = await self.request("GET", url, ignore_codes=[400])
-            data = await resp.json()
-            return data["id"]
-        except (KeyError, json.decoder.JSONDecodeError):
-            return None
-
-    async def get_formatted_uuid(self, username: str, timestamp: Optional[int] = None) -> Optional[str]:
-        """Convert a Minecraft name to a UUID and format it with dashes."""
+        """Convert a Minecraft name to a formatted UUID. Current implementation ignores the timestamp parameter."""
         url = f"{_API_BASE_URL}/users/profiles/minecraft/{username}"
         if timestamp:
             url += f"?at={timestamp}"
@@ -34,7 +21,7 @@ class API(_HTTPClient):
             resp = await self.request("GET", url, ignore_codes=[400])
             data = await resp.json()
             uuid = data["id"].replace("-", "")
-            
+
             formatted_uuid = (
                 uuid[:8] + '-' +
                 uuid[8:12] + '-' +
@@ -42,7 +29,7 @@ class API(_HTTPClient):
                 uuid[16:20] + '-' +
                 uuid[20:]
             )
-            
+
             return formatted_uuid
         except (KeyError, json.decoder.JSONDecodeError):
             return None

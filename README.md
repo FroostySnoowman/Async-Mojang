@@ -23,11 +23,6 @@ async def get_uuid(username: str):
         uuid = await api.get_uuid(username)
         return uuid
 
-async def get_formatted_uuid(username: str):
-    async with API() as api:
-        formatted_uuid = await api.get_formatted_uuid(username)
-        return formatted_uuid
-
 async def get_stripped_uuid(username: str):
     async with API() as api:
         stripped_uuid = await api.get_stripped_uuid(username)
@@ -51,9 +46,6 @@ async def get_blocked_servers():
 async def main():
     uuid = await get_uuid("FroostySnoowman")
     print(uuid)
-
-    formatted_uuid = await get_formatted_uuid("FroostySnoowman")
-    print(formatted_uuid)
 
     stripped_uuid = await get_stripped_uuid("FroostySnoowman")
     print(stripped_uuid)

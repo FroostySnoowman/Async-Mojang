@@ -2,3 +2,4 @@ __pycache__
 build
 dist
 async_mojang.egg-info
+DEV-README.md

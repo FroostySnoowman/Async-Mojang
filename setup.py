@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="async-mojang",
-    version="1.0.3",
+    version="1.0.4",
     author="FroostySnoowman",
     description="An async Python wrapper for the Mojang API.",
     long_description=open('README.md').read(),
