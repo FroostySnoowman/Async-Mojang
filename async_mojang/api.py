@@ -1,7 +1,7 @@
 import ast
 import json
 import base64
-from typing import Any, List, Dict, Optional
+from typing import List, Dict, Optional
 
 from async_mojang._types import UserProfile
 from async_mojang._http_client import _HTTPClient
@@ -9,13 +9,11 @@ from async_mojang.errors import MojangError
 
 _API_BASE_URL = "https://api.mojang.com"
 _SESSIONSERVER_BASE_URL = "https://sessionserver.mojang.com"
+_UUID_API_URL = "https://api.minecraftservices.com/minecraft/profile/lookup/name"
 
 class API(_HTTPClient):
-    async def get_uuid(self, username: str, timestamp: Optional[int] = None) -> Optional[str]:
-        """Convert a Minecraft name to a formatted UUID. Current implementation ignores the timestamp parameter."""
-        url = f"{_API_BASE_URL}/users/profiles/minecraft/{username}"
-        if timestamp:
-            url += f"?at={timestamp}"
+    async def get_uuid(self, username: str) -> Optional[str]:
+        url = f"{_UUID_API_URL}/{username}"
 
         try:
             resp = await self.request("GET", url, ignore_codes=[400])
@@ -33,20 +31,14 @@ class API(_HTTPClient):
             return formatted_uuid
         except (KeyError, json.decoder.JSONDecodeError):
             return None
-    
-    async def get_stripped_uuid(self, username: str, timestamp: Optional[int] = None) -> Optional[str]:
-        """Convert a Minecraft name to a UUID and remove all dashes."""
-        url = f"{_API_BASE_URL}/users/profiles/minecraft/{username}"
-        if timestamp:
-            url += f"?at={timestamp}"
+
+    async def get_stripped_uuid(self, username: str) -> Optional[str]:
+        url = f"{_UUID_API_URL}/{username}"
 
         try:
             resp = await self.request("GET", url, ignore_codes=[400])
             data = await resp.json()
-            
-            uuid = data["id"].replace("-", "")
-            
-            return uuid
+            return data["id"].replace("-", "")
         except (KeyError, json.decoder.JSONDecodeError):
             return None
 
